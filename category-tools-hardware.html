@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tools & Hardware - DealZone PK</title>
+  <link rel="stylesheet" href="assets/style.css"/>
+</head>
+<body>
+<header class="site-header">
+<div class="nav-wrap">
+<a class="brand" href="index.html">
+<div class="brand-mark">DZ</div>
+<div><strong>DealZone PK</strong><span>Smart Deals, Better Living</span></div>
+</a>
+<nav class="main-nav">
+<a href="index.html">Home</a>
+<a href="index.html#top-products">Top Deals</a>
+<a href="#contact">Contact</a>
+</nav>
+<a class="order-btn" href="https://wa.me/923258576612" target="_blank">WhatsApp</a>
+</div>
+</header>
+
+<main>
+<section class="category-page-hero">
+<span class="breadcrumb">Home / Category</span>
+<h1 id="categoryTitle">Tools & Hardware</h1>
+<p id="categoryDescription">
+Browse tool kits, screwdrivers, pliers, hammers, measuring tapes and hardware essentials.
+</p>
+<a class="btn soft back-home" href="index.html">← Back to Home</a>
+</section>
+
+<section class="category-page-products">
+<div id="setupWarning" class="setup-warning hidden"></div>
+
+<div class="category-toolbar">
+<div>
+<strong id="categoryCount">0 Products</strong>
+<p class="clean-note" style="margin:6px 0 0">
+Browse latest products in this category.
+</p>
+</div>
+
+<div style="display:flex;gap:10px;flex-wrap:wrap">
+<input id="categorySearch" type="search" placeholder="Search products...">
+<select id="sortProducts" class="sort-select">
+<option value="newest">Newest</option>
+<option value="price-low">Price Low to High</option>
+<option value="price-high">Price High to Low</option>
+</select>
+</div>
+</div>
+
+<div id="categoryProductGrid" class="product-grid"></div>
+</section>
+</main>
+
+<footer id="contact" class="footer">
+<div class="footer-bottom">
+<span>© 2026 DealZone PK. All Rights Reserved.</span>
+<span>Tools & Hardware Products</span>
+</div>
+</footer>
+
+<script>
+window.DEALZONE_CATEGORY_NAME = "Tools & Hardware";
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/config.js"></script>
+<script src="assets/category.js"></script>
+</body>
+</html>
