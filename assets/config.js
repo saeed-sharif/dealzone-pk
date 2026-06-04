@@ -15,6 +15,7 @@ window.DEALZONE_CONFIG = {
     "Mobile Accessories",
     "Laptop Accessories",
     "Microphones",
-    "Car Accessories"
+    "Car Accessories",
+    "Tools & Hardware"
   ]
 };
