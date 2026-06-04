@@ -1,9 +1,141 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>DealZone PK Secure Admin</title><link rel="stylesheet" href="assets/style.css"/></head><body class="admin-body">
-<main id="loginBox" class="login-box"><div class="brand-mark center">DZ</div><h1>DealZone PK Admin</h1><p>Private live product upload dashboard.</p><input id="passwordInput" type="password" placeholder="Enter admin password"/><button class="btn primary full" onclick="login()">Login</button><small>Initial password: <strong>saeed@1122</strong></small></main>
-<main id="adminPanel" class="admin-panel hidden"><div class="admin-header"><div><span class="admin-kicker">Private Dashboard</span><h1>Live Product Upload Panel</h1><p>Image goes to Cloudinary. Product data goes to Supabase. Every visitor can see products online.</p></div><div class="admin-actions"><a class="btn soft" href="index.html">View Website</a><button class="btn danger" onclick="logout()">Logout</button></div></div>
-<section class="admin-card security-card"><h2>Admin Security</h2><p>Hidden admin URL + password change/reset. For stronger security later, use Supabase Auth.</p><div class="form-grid three"><label>Current Password<input id="currentPassword" type="password"></label><label>New Password<input id="newPassword" type="password"></label><label>Confirm New Password<input id="confirmPassword" type="password"></label></div><button class="btn primary" onclick="changePassword()">Change Password</button><button class="btn soft" onclick="resetPassword()">Reset to Initial Password</button></section>
-<section class="admin-card cloudinary-card"><h2>Cloudinary Settings</h2><div class="form-grid two"><label>Cloudinary Cloud Name<input id="cloudName" type="text" placeholder="dmcw5ene0"></label><label>Unsigned Upload Preset<input id="uploadPreset" type="text" placeholder="dealzone_products"></label></div><button class="btn primary" onclick="saveCloudinarySettings()">Save Cloudinary Settings</button></section>
-<section class="admin-card cloudinary-card"><h2>Supabase Settings</h2><p>Paste Supabase Project URL and anon public key.</p><div class="form-grid two"><label>Supabase Project URL<input id="supabaseUrl" type="url" placeholder="https://xxxx.supabase.co"></label><label>Supabase anon public key<input id="supabaseAnonKey" type="text" placeholder="eyJhbGci..."></label></div><button class="btn primary" onclick="saveSupabaseSettings()">Save Supabase Settings</button><button class="btn soft" onclick="testSupabaseConnection()">Test Supabase</button></section>
-<section class="admin-card"><h2>Add New Product</h2><form id="productForm"><div class="form-grid"><label>Product Name<input id="productName" type="text" required></label><label>Price<input id="productPrice" type="text" required></label><label>Category<select id="productCategory" required><option value="">Select Category</option><option>Fashion</option><option>Mobile Accessories</option><option>Laptop Accessories</option><option>Microphones</option><option>Car Accessories</option></select></label><label>Stock<input id="productStock" type="text" placeholder="In Stock"></label></div><label>Description<textarea id="productDescription" required></textarea></label><div class="upload-tabs"><button type="button" class="tab active" data-tab="fileUpload">Upload Image</button><button type="button" class="tab" data-tab="urlUpload">Use Image URL</button></div><div id="fileUpload" class="tab-panel active"><label>Product Image<input id="productImage" type="file" accept="image/*"></label></div><div id="urlUpload" class="tab-panel"><label>Image URL<input id="productImageUrl" type="url"></label></div><button class="btn primary" type="submit">Save Product Online</button></form></section>
-<section class="admin-card"><div class="admin-list-head"><h2>Live Products</h2><button class="btn soft small" onclick="renderAdminProducts()">Refresh</button></div><div id="adminProducts" class="admin-products"></div></section></main>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="assets/config.js"></script><script src="assets/admin.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DealZone PK Secure Admin</title>
+  <link rel="stylesheet" href="assets/style.css"/>
+</head>
+<body class="admin-body">
+
+<main id="loginBox" class="login-box">
+  <div class="brand-mark center">DZ</div>
+  <h1>DealZone PK Admin</h1>
+  <p>Private live product upload dashboard.</p>
+  <input id="passwordInput" type="password" placeholder="Enter admin password"/>
+  <button class="btn primary full" onclick="login()">Login</button>
+  <small>Initial password: <strong>saeed@1122</strong></small>
+</main>
+
+<main id="adminPanel" class="admin-panel hidden">
+  <div class="admin-header">
+    <div>
+      <span class="admin-kicker">Private Dashboard</span>
+      <h1>Live Product Upload Panel</h1>
+      <p>Image goes to Cloudinary. Product data goes to Supabase. Every visitor can see products online.</p>
+    </div>
+    <div class="admin-actions">
+      <a class="btn soft" href="index.html">View Website</a>
+      <button class="btn danger" onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <section class="admin-card security-card">
+    <h2>Admin Security</h2>
+    <p>Hidden admin URL + password change/reset. For stronger security later, use Supabase Auth.</p>
+    <div class="form-grid three">
+      <label>Current Password<input id="currentPassword" type="password"></label>
+      <label>New Password<input id="newPassword" type="password"></label>
+      <label>Confirm New Password<input id="confirmPassword" type="password"></label>
+    </div>
+    <button class="btn primary" onclick="changePassword()">Change Password</button>
+    <button class="btn soft" onclick="resetPassword()">Reset to Initial Password</button>
+  </section>
+
+  <section class="admin-card cloudinary-card">
+    <h2>Cloudinary Settings</h2>
+    <div class="form-grid two">
+      <label>Cloudinary Cloud Name<input id="cloudName" type="text" placeholder="dmcw5ene0"></label>
+      <label>Unsigned Upload Preset<input id="uploadPreset" type="text" placeholder="dealzone_products"></label>
+    </div>
+    <button class="btn primary" onclick="saveCloudinarySettings()">Save Cloudinary Settings</button>
+  </section>
+
+  <section class="admin-card cloudinary-card">
+    <h2>Supabase Settings</h2>
+    <p>Paste Supabase Project URL and anon public key.</p>
+    <div class="form-grid two">
+      <label>Supabase Project URL<input id="supabaseUrl" type="url" placeholder="https://xxxx.supabase.co"></label>
+      <label>Supabase anon public key<input id="supabaseAnonKey" type="text" placeholder="eyJhbGci..."></label>
+    </div>
+    <button class="btn primary" onclick="saveSupabaseSettings()">Save Supabase Settings</button>
+    <button class="btn soft" onclick="testSupabaseConnection()">Test Supabase</button>
+  </section>
+
+  <section class="admin-card">
+    <h2>Add New Product</h2>
+
+    <form id="productForm">
+      <div class="form-grid">
+        <label>
+          Product Name
+          <input id="productName" type="text" required>
+        </label>
+
+        <label>
+          Price
+          <input id="productPrice" type="text" required>
+        </label>
+
+        <label>
+          Category
+          <select id="productCategory" required>
+            <option value="">Select Category</option>
+            <option>Fashion</option>
+            <option>Mobile Accessories</option>
+            <option>Laptop Accessories</option>
+            <option>Microphones</option>
+            <option>Car Accessories</option>
+            <option>Tools & Hardware</option>
+          </select>
+        </label>
+
+        <label>
+          Stock
+          <input id="productStock" type="text" placeholder="In Stock">
+        </label>
+      </div>
+
+      <label>
+        Description
+        <textarea id="productDescription" required></textarea>
+      </label>
+
+      <div class="upload-tabs">
+        <button type="button" class="tab active" data-tab="fileUpload">Upload Image</button>
+        <button type="button" class="tab" data-tab="urlUpload">Use Image URL</button>
+      </div>
+
+      <div id="fileUpload" class="tab-panel active">
+        <label>
+          Product Image
+          <input id="productImage" type="file" accept="image/*">
+        </label>
+      </div>
+
+      <div id="urlUpload" class="tab-panel">
+        <label>
+          Image URL
+          <input id="productImageUrl" type="url">
+        </label>
+      </div>
+
+      <button class="btn primary" type="submit">Save Product Online</button>
+    </form>
+  </section>
+
+  <section class="admin-card">
+    <div class="admin-list-head">
+      <h2>Live Products</h2>
+      <button class="btn soft small" onclick="renderAdminProducts()">Refresh</button>
+    </div>
+    <div id="adminProducts" class="admin-products"></div>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/config.js"></script>
+<script src="assets/admin.js"></script>
+
+</body>
+</html>
